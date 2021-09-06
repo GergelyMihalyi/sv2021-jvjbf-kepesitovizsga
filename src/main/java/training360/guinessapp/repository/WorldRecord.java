@@ -25,6 +25,10 @@ public class WorldRecord {
     @OneToOne
     @JoinColumn(name = "recorder_id", referencedColumnName = "id")
     private Recorder recorder;
+    @Transient
+    private Recorder oldRecorder;
+    @Transient
+    private Double oldValue;
 
     public WorldRecord(String description, Double value, String unitOfMeasure, LocalDate dateOfRecord, Recorder recorder) {
         this.description = description;
@@ -32,6 +36,22 @@ public class WorldRecord {
         this.unitOfMeasure = unitOfMeasure;
         this.dateOfRecord = dateOfRecord;
         this.recorder = recorder;
+    }
+
+    public Double getNewRecordValue(){
+        return value;
+    }
+
+    public String getNewRecorderName(){
+        return recorder.getName();
+    }
+
+    public Double oldRecordValue(){
+        return oldValue;
+    }
+
+    public String oldRecorderName(){
+        return oldRecorder.getName();
     }
 
 }

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
+import training360.guinessapp.dto.BeatWorldRecordDto;
 import training360.guinessapp.dto.WorldRecordCreateCommand;
 import training360.guinessapp.dto.WorldRecordDto;
 import training360.guinessapp.dto.BeatWorldRecordCommand;
@@ -34,7 +35,7 @@ public class WorldRecordController {
 
     @PutMapping("/{id}/beatrecords")
     @ResponseStatus(HttpStatus.CREATED)
-    public WorldRecordDto updateWorldRecord(@PathVariable("id") long id, @Valid @RequestBody BeatWorldRecordCommand command) {
+    public BeatWorldRecordDto updateWorldRecord(@PathVariable("id") long id, @Valid @RequestBody BeatWorldRecordCommand command) {
         return worldRecordService.updateWorldRecord(id, command);
     }
 

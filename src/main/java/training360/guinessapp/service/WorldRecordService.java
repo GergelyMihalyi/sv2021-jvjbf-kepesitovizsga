@@ -3,6 +3,7 @@ package training360.guinessapp.service;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import training360.guinessapp.dto.BeatWorldRecordDto;
 import training360.guinessapp.dto.WorldRecordCreateCommand;
 import training360.guinessapp.dto.WorldRecordDto;
 import training360.guinessapp.dto.BeatWorldRecordCommand;
@@ -32,16 +33,18 @@ public class WorldRecordService {
     }
 
     @Transactional
-    public WorldRecordDto updateWorldRecord(long id, BeatWorldRecordCommand command){
+    public BeatWorldRecordDto updateWorldRecord(long id, BeatWorldRecordCommand command){
         WorldRecord worldRecord = worldRecordRepository.findById(id).orElseThrow( ()-> new WorldRecordNotFoundException("World record not found"));
         Recorder recorder = recordersRepository.findById(command.getRecorderId()).orElseThrow( ()-> new RecorderNotFoundException("Recorder not found"));
         if(worldRecord.getValue() > command.getValue()){
             throw new NotNewRecordException("Can not beat");
         }
+        worldRecord.setOldRecorder(worldRecord.getRecorder());
         worldRecord.setRecorder(recorder);
         worldRecord.setValue(command.getValue());
+        worldRecord.setOldValue(worldRecord.getValue());
         worldRecord.setDateOfRecord(LocalDate.now());
         worldRecordRepository.save(worldRecord);
-        return modelMapper.map(worldRecord, WorldRecordDto.class);
+        return modelMapper.map(worldRecord, BeatWorldRecordDto.class);
     }
 }
