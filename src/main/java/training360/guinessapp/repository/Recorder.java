@@ -1,4 +1,4 @@
-package training360.guinessapp.recorders;
+package training360.guinessapp.repository;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

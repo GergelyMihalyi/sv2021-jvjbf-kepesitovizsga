@@ -1,10 +1,12 @@
-package training360.guinessapp.recorders;
+package training360.guinessapp.service;
 
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import training360.guinessapp.dto.RecorderCreateCommand;
 import training360.guinessapp.dto.RecorderDto;
+import training360.guinessapp.repository.Recorder;
+import training360.guinessapp.repository.RecordersRepository;
 
 @Service
 @AllArgsConstructor
